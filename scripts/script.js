@@ -1,3 +1,20 @@
+// global variables
+var verbose = true;
+var startup_request = "https://esip-dev-02.edacnm.org/api/resources/";
+
+// Search-related global variables
+var search_string = "";
+var search_facets = {};
+var search_JSON = {};
+var results = {};
+var current_result_returned = 0;
+var current_result_count = 0;
+
+// Generated HTML content
+var facets_html = "";
+var results_html = "";
+
+
 // utility functions
 function vMessage(message, target = "console") {
     // target parameter options:
@@ -22,7 +39,7 @@ function facetsToHTML(results_json) {
     // generate a set of checkbox blocks for the sorted (desc) facet values
     // within an html form
     let facets_dict = results_json["facets"];
-    let returnHTML = ""
+    let returnHTML = "<form>\n"
     // sort the provided facets_json block
     let facets_sorted = {};
     $.each( facets_dict, function( key, value) {
@@ -33,10 +50,24 @@ function facetsToHTML(results_json) {
     })
 
     // process the sorted array into the corresponding set of checkbox controls
-
-
+    $.each( facets_sorted, function( key, value ) {
+        vMessage("Processing: " + key)
+        returnHTML = returnHTML + "<h2>" + key + "</h2>\n"
+        vMessage(value)
+        let i = 0
+        $.each( facets_sorted[key], function(item) {
+            let itemText = "<input type=\"checkbox\" id=\"" + key + "-" + i + "\" value=\"" + key + "|" + facets_sorted[key][i][0] + "\" name=\"" + facets_sorted[key][i][0] + " (" + facets_sorted[key][i][1] + ")\"" + ">\n";
+            returnHTML = returnHTML + itemText;
+            let itemLabel = "<label for=\"" + key + "-" + i + "\">" + facets_sorted[key][i][0] + "</label><br/>\n"
+            returnHTML = returnHTML + itemLabel;
+            //vMessage(itemText);
+            i = i + 1;
+        })
+    })
+    returnHTML = returnHTML + "</form>\n";
+    vMessage(returnHTML);
     // return the generated HTML
-    return returnHTML
+    $("#results-facets").html(returnHTML);
 }
 
 function resultsToHTML(results_json) {
@@ -62,6 +93,7 @@ function processResults(data) {
     vMessage("Returned records in the result set: " + current_result_returned)
     vMessage("Total number of records in result set: " + current_result_count);
     vMessage(results["facets"]);
+    facetsToHTML(results)
 }
 
 // Document Ready code

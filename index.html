@@ -6,118 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Local Stylesheet -->
     <link rel="stylesheet" href="styles/styles.css">
-    <script>
-        // global variables
-        var verbose = true;
-        var startup_request = "https://esip-dev-02.edacnm.org/api/resources/";
-
-        // Search-related global variables
-        var search_string = "";
-        var search_facets = {};
-        var search_JSON = {};
-        var results = {};
-        var current_result_returned = 0;
-        var current_result_count = 0;
-
-        // Generated HTML content
-        var facets_html = "";
-        var results_html = "";
-    </script>
     <!-- Bootstrap CSS -->
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
     <title>Data Management Training Clearinghouse</title>
 </head>
 <body>
 
+<!-- Reusable standard blocks ------------------------------------------------>
 
-
-<div class="slots, layout-block">
-    <div class="top-banner">Top Banner Slot</div>
-    <div class="top-nav">Top Navigation Slot</div>
-    <div class="top-image">Top Image Slot</div>
-    <div class="breadcrumbs">Breadcrumbs Slot</div>
-    <div class="quick-search">Quick Search Slot</div>
-    <div class="side-nav">Side Navigation Slot</div>
-    <div class="facets">Facets Slot</div>
-    <div class="content-main"><h1>Hello, Data Management Training Clearinghouse</h1> Slot</div>
-    <div class="content-searchresult">Search Results Slot</div>
-    <div class="footer">Footer Slot</div>
-</div>
-
+<div class="standard top-banner" id="standard-top-banner">Standard Top Banner Content</div>
+<div class="standard top-nav" id="standard-top-nav">Standard Top Navigation Content</div>
+<div class="standard top-image" id="standard-top-image">Standard Top Image Content</div>
+<div class="standard breadcrumbs" id="standard-breadcrumbs">Standard Breadcrumbs Content</div>
+<div class="standard quick-search" id="standard-quick-search">Standard Quick-search Content</div>
+<div class="standard side_nav" id="standard-side-nav">Standard Side Navigation Content</div>
+<div class="standard facets" id="standard-facets">Standard Facets Content</div>
+<div class="standard content-main" id="standard-content-main">Standard Main Content</div>
+<div class="standard searchresult" id="standard-searchresult">Standard Search Result Content</div>
+<div class="standard footer">Standard Footer Content</div>
 
 
 <!-- Hash content blocks ----------------------------------------------------->
 
-<!-- Inventory of reusable content divs
-<div class="page template">
-    <div class="top-banner">Top Banner</div>
-    <div class="top-nav">Top Navigation</div>
-    <div class="top-image">Top Image</div>
-    <div class="breadcrumbs">Breadcrumbs</div>
-    <div class="quick-search">Quick Search</div>
-    <div class="side-nav">Side Navigation</div>
-    <div class="facets">Facets</div>
-    <div class="content-main">Introductory content</div>
-    <div class="content-searchresult">Search Results</div>
-    <div class="footer">Footer</div>
-</div>
--->
-
 <!-- Home Page -->
-<div class="page home">
-    <div class="top-banner">Top Banner</div>
-    <div class="top-nav">Top Navigation</div>
-    <div class="top-image">Top Image</div>
-    <div class="breadcrumbs">Breadcrumbs</div>
-    <div class="quick-search">Quick Search</div>
-    <div class="side-nav">Side Navigation</div>
-    <div class="facets">Facets</div>
-    <div class="content-main"><h1>Hello, Data Management Training Clearinghouse</h1></div>
-    <div class="content-searchresult">Search Results</div>
-    <div class="footer">Footer</div>
+<div class="page home" id="home">
+    <div class="top-banner" id="home-top-banner">Top Banner</div>
+    <div class="top-nav" id="home-top-nav">Top Navigation</div>
+    <div class="top-image" id="home-top-image">Top Image</div>
+    <div class="breadcrumbs" id="home-breadcrumbs">Breadcrumbs</div>
+    <div class="quick-search" id="home-quick-search">Quick Search</div>
+    <div class="side-nav" id="home-side-nav">Side Navigation</div>
+    <div class="facets" id="home-facets">Facets</div>
+    <div class="content-main" id="home-content-main"><h1>Hello, Data Management Training Clearinghouse</h1></div>
+    <div class="searchresult" id="home-searchresult">Search Results</div>
+    <div class="footer" id="home-footer">Footer</div>
 </div>
 
 <!-- Search Results -->
-<div class="page results">
-    <div class="top-banner">Top Banner</div>
-    <div class="top-nav">Top Navigation</div>
-    <div class="top-image">Top Image</div>
-    <div class="breadcrumbs">Breadcrumbs</div>
-    <div class="quick-search">Quick Search</div>
-    <div class="side-nav">Side Navigation</div>
-    <div class="facets">Facets</div>
-    <div class="content-main"><h1>Search Results Page</h1></div>
-    <div class="content-searchresult">Search Results</div>
-    <div class="footer">Footer</div>
+<div class="page results" id="results">
+    <div class="top-banner" id="results-top-banner">Top Banner</div>
+    <div class="top-nav" id="results-top-nav">Top Navigation</div>
+    <div class="top-image" id="results-top-image">Top Image</div>
+    <div class="breadcrumbs" id="results-breadcrumbs">Breadcrumbs</div>
+    <div class="quick-search" id="results-quick-search">Quick Search</div>
+    <div class="side-nav" id="results-side-nav">Side Navigation</div>
+    <div class="facets" id="results-facets">Facets</div>
+    <div class="content-main" id="results-content-main"><h1>Search Results Page</h1></div>
+    <div class="searchresult" id="results-searchresult">Search Results</div>
+    <div class="footer" id="results-footer">Footer</div>
 </div>
 
-<!-- Error -->
-<div class="page error">
-    <div class="top-banner">Top Banner</div>
-    <div class="top-nav">Top Navigation</div>
-    <div class="top-image">Top Image</div>
-    <div class="breadcrumbs">Breadcrumbs</div>
-    <div class="quick-search">Quick Search</div>
-    <div class="side-nav">Side Navigation</div>
-    <div class="facets">Facets</div>
-    <div class="content-main"><h1>Something went wrong</h1></div>
-    <div class="content-searchresult">Search Results</div>
-    <div class="footer">Footer</div>
+<!-- FAQ/Help -->
+<div class="page faq" id="faq">
+    <div class="top-banner" id="faq-top-banner">Top Banner</div>
+    <div class="top-nav" id="faq-top-nav">Top Navigation</div>
+    <div class="top-image" id="faq-top-image">Top Image</div>
+    <div class="breadcrumbs" id="faq-breadcrumbs">Breadcrumbs</div>
+    <div class="quick-search" id="faq-quick-search">Quick Search</div>
+    <div class="side-nav" id="faq-side-nav">Side Navigation</div>
+    <div class="facets" id="faq-facets">Facets</div>
+    <div class="content-main" id="faq-content-main"><h1>Search Results Page</h1></div>
+    <div class="searchresult" id="faq-searchresult">Search Results</div>
+    <div class="footer" id="faq-footer">Footer</div>
 </div>
 
 
-<!-- Reusable standard blocks ------------------------------------------------>
-
-<div class="standard top-banner">Standard Top Banner Content</div>
-<div class="standard top-nav">Standard Top Navigation Content</div>
-<div class="standard top-image">Standard Top Image Content</div>
-<div class="standard breadcrumbs">Standard Breadcrumbs Content</div>
-<div class="standard quick-search">Standard Quick-search Content</div>
-<div class="standard side_nav">Standard Side Navigation Content</div>
-<div class="standard facets">Standard Facets Content</div>
-<div class="standard content-main">Standard Main Content</div>
-<div class="standard searchresult">Standard Search Result Content</div>
-<div class="standard footer">Standard Footer Content</div>
 
 <!-- Required JavaScript-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha256-usTqAE1ywvdMtksWzdeWzD75MsfJN0h0U7y2NtZL3N0=" crossorigin="anonymous"></script>
