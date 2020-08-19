@@ -4,3 +4,24 @@
     padding: 1em;
     margin: 1em
 }
+.facet-block {
+    border:1px solid grey;
+    margin:4px;
+    padding:1em
+}
+.facet-item {
+    display: block;
+    padding-left: 1em;
+    text-indent: -1.5em;
+}
+.facet-overflow {
+    display:hidden
+}
+
+.home {
+    display:none
+}
+
+.faq {
+    display:none
+}
