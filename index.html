@@ -4,6 +4,25 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>
+        // Global Variables
+        var verbose = true;
+        var startup_request = "https://esip-dev-02.edacnm.org/api/resources/";
+
+        // Search-related global variables
+        var search_string = "";
+        var search_facets = {};
+        let offset = 0;
+        let limit = 15;
+        let search_JSON = {};
+        var results = {};
+        var current_result_returned = 0;
+        var current_result_count = 0;
+
+        // Generated HTML content
+        let facets_html = "";
+        let results_html = "";
+    </script>
     <!-- Local Stylesheet -->
     <link rel="stylesheet" href="styles/styles.css">
     <!-- Bootstrap CSS -->
@@ -13,13 +32,16 @@
 <body>
 
 <!-- Reusable standard blocks ------------------------------------------------>
-
+<form>
 <div class="slots layout-block">
     <div class="top-banner">Top Banner Slot</div>
     <div class="top-nav">Top Navigation Slot</div>
     <div class="top-image">Top Image Slot</div>
     <div class="breadcrumbs">Breadcrumbs Slot</div>
-    <div class="quick-search">Quick Search Slot</div>
+    <div class="quick-search">Quick Search:
+        <input type="text" id="quick-search-entry" name="quick-search-entry" />
+        <input type="button" id="quick-search-submit" name="quick-search-submit" value="Search" />
+    </div>
     <div class="side-nav">Side Navigation Slot</div>
     <div class="facets">Facets Slot</div>
     <div class="content-main"><h1>Hello, Data Management Training Clearinghouse</h1> Slot</div>
@@ -40,7 +62,7 @@
     <div class="quick-search" id="home-quick-search">Quick Search</div>
     <div class="side-nav" id="home-side-nav">Side Navigation</div>
     <div class="facets" id="home-facets">Facets</div>
-    <div class="content-main" id="home-content-main"><h1>Hello, Data Management Training Clearinghouse</h1></div>
+    <div class="content-main" id="home-content-main">Home Content</div>
     <div class="searchresult" id="home-searchresult">Search Results</div>
     <div class="footer" id="home-footer">Footer</div>
 </div>
@@ -72,7 +94,7 @@
     <div class="searchresult" id="faq-searchresult">Search Results</div>
     <div class="footer" id="faq-footer">Footer</div>
 </div>
-
+</form>
 
 
 <!-- Required JavaScript-->
