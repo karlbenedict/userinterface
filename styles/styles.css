@@ -1,6 +1,66 @@
-.layout-block {border:2px solid red}
+
 .page {
     border:1px solid black;
     padding: 1em;
-    margin: 1em
+    margin: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#quick-search-entry {
+    width:300px;
+}
+
+.facets H2 {
+    font-size:small
+}
+
+.facets label {
+    font-size:x-small
+}
+
+.facet-block {
+    border:1px solid grey;
+    margin:4px;
+    padding:1em
+}
+.facet-item {
+    display: block;
+    padding-left: 1em;
+    text-indent: -1.5em;
+}
+
+.results {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#results-facets {
+    width:250px;
+    flex-basis: 250px;
+    flex: none
+}
+
+#results-searchresult {
+    flex:1;
+    padding-left:2em;
+    padding-right:2em
+}
+
+.result-item {
+    border:1px solid grey;
+    margin:4px;
+    padding:1em
+}
+
+
+.home {
+    display:none
+}
+
+.faq {
+    display:none
+}
+
+.hide {
+    display:none
 }
