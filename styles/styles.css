@@ -52,6 +52,9 @@
     padding:1em
 }
 
+#dump-query {
+    font-size:xx-small;
+}
 
 .home {
     display:none

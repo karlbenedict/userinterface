@@ -126,7 +126,6 @@ function resultsToHTML() {
     });
 
     returnHTML = returnHTML + "</div>";
-
     $("#results-searchresult").html(returnHTML);
 }
 
@@ -296,7 +295,7 @@ function processResults(data) {
         return false;
     });
     resultsToHTML()
-    $("#dump-query").html("<pre>" + JSON.stringify(post_content) + "</pre>")
+    $("#dump-query").html("<pre>Query JSON: " + JSON.stringify(post_content) + "</pre>")
 }
 
 function defaultSearch() {
