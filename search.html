@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Local Stylesheet -->
+    <link rel="stylesheet" href="styles/styles.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Data Management Training Clearinghouse</title>
+</head>
+
+<body>
+
+    <!-- Collapsible navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"> Search
+                        <span class="sr-only"> (current) </span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> Submit </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> FAQ </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> About </a>
+                </li>
+                <!--
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                        id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1"
+                        aria-disabled="true">Disabled</a>
+                </li>
+                -->
+            </ul>
+            <!--
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search"
+                    placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit">Search</button>
+            </form>
+            -->
+        </div>
+        <img src="images/person.png"> Login
+    </nav>
+
+    <!-- Search controls section -->
+    <!--
+    <div class="container mb-5">
+        <h4>Search</h4>
+        <!-- https://getbootstrap.com/docs/4.5/components/forms/#form-row
+        https://getbootstrap.com/docs/4.5/components/forms/#custom-forms -->
+        <!--
+        <form id="master-form" class="form-inline">
+            <div class="form-row">
+                <div class="col-8">
+                    <input id="quick-search-entry" name="quick-search-entry"
+                    class="form-control" type="search"
+                    placeholder="Enter a keyword">
+                </div>
+                <div class="col">
+                    <button id="quick-search-submit" name="quick-search-submit"
+                        class="btn btn-info" type="submit"> xSearch </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    -->
+
+    <form id="master-form" class="form-inline">
+
+        <!-- Search controls section -->
+        <div class="container">
+
+            <!-- https://getbootstrap.com/docs/4.5/components/forms/#form-row -->
+            <div class="d-flex row">
+                <div class="p-1"><h5> Search </h5></div>
+                <div class="p-1 flex-grow-1">
+                    <input id="quick-search-entry" name="quick-search-entry"
+                    type="text" placeholder="Enter a keyword" class="col-12">
+                </div>
+                <div class="p-1">
+                    <button id="quick-search-submit" name="quick-search-submit"
+                        class="btn btn-info" type="submit"> Search </button>
+                </div>
+                <div class="p-1">
+                    <button class="btn btn-light" type="submit"
+                        id="quick-search-clear" name="quick-search-clear"
+                        value="Clear Search"> Clear all </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+                <!-- Left side filters section -->
+                <div class="col-3">
+                    <h5> Filters </h5>
+                    <div id="results-facets"></div>
+                </div>
+
+                <!-- right side results section -->
+                <div class="col-9">
+                    <h5> Search Results: </h5>
+                    <div class="container-fluid" id="results-searchresult"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+<!-- Reusable standard blocks ------------------------------------------------>
+<!--
+<form id="master-form">
+<section class="page slots layout-block">
+    <div class="top-banner hide">Top Banner Slot</div>
+    <div class="top-nav hide">Top Navigation Slot</div>
+    <div class="top-image hide">Top Image Slot</div>
+    <div class="breadcrumbs hide">Breadcrumbs Slot</div>
+    <div class="quick-search">Quick Search:
+        <input type="text" id="quick-search-entry" name="quick-search-entry" />
+        <input type="button" id="quick-search-submit" name="quick-search-submit" value="Search" />
+        <input type="button" id="quick-search-clear" name="quick-search-clear" value="Clear Search" />
+        <div id="quick-search-facets"></div>
+    </div>
+    <div class="side-nav hide">Side Navigation Slot</div>
+    <div class="facets hide">Facets Slot</div>
+    <div class="content-main hide"><h1>Hello, Data Management Training Clearinghouse</h1> Slot</div>
+    <div class="content-searchresult hide">Search Results Slot</div>
+    <div class="footer hide">Footer Slot</div>
+</section>
+-->
+
+
+<!-- Hash content blocks ----------------------------------------------------->
+
+<!-- Home Page -->
+<section class="page home" id="home">
+    <div class="top-banner" id="home-top-banner">Top Banner</div>
+    <div class="top-nav" id="home-top-nav">Top Navigation</div>
+    <div class="top-image" id="home-top-image">Top Image</div>
+    <div class="breadcrumbs" id="home-breadcrumbs">Breadcrumbs</div>
+    <div class="quick-search" id="home-quick-search">Quick Search</div>
+    <div class="side-nav" id="home-side-nav">Side Navigation</div>
+    <div class="facets" id="home-facets">Facets</div>
+    <div class="content-main" id="home-content-main">Home Content</div>
+    <div class="searchresult" id="home-searchresult">Search Results</div>
+    <div class="footer" id="home-footer">Footer</div>
+</section>
+
+<!-- Search Results -->
+<!--
+<section class="page results" id="results">
+    <div class="top-banner hide" id="results-top-banner">Top Banner</div>
+    <div class="top-nav hide" id="results-top-nav">Top Navigation</div>
+    <div class="top-image hide" id="results-top-image">Top Image</div>
+    <div class="breadcrumbs hide" id="results-breadcrumbs">Breadcrumbs</div>
+    <div class="quick-search hide" id="results-quick-search">Quick Search</div>
+    <div class="side-nav hide" id="results-side-nav">Side Navigation</div>
+    <div class="facets" id="results-facets">Facets</div>
+    <div class="content-main hide" id="results-content-main"><h1>Search Results Page</h1></div>
+    <div class="searchresult" id="results-searchresult">Search Results</div>
+    <div class="footer hide" id="results-footer">Footer</div>
+</section>
+-->
+
+<!-- FAQ/Help -->
+<section class="page faq" id="faq">
+    <div class="top-banner" id="faq-top-banner">Top Banner</div>
+    <div class="top-nav" id="faq-top-nav">Top Navigation</div>
+    <div class="top-image" id="faq-top-image">Top Image</div>
+    <div class="breadcrumbs" id="faq-breadcrumbs">Breadcrumbs</div>
+    <div class="quick-search" id="faq-quick-search">Quick Search</div>
+    <div class="side-nav" id="faq-side-nav">Side Navigation</div>
+    <div class="facets" id="faq-facets">Facets</div>
+    <div class="content-main" id="faq-content-main"><h1>Search Results Page</h1></div>
+    <div class="searchresult" id="faq-searchresult">Search Results</div>
+    <div class="footer" id="faq-footer">Footer</div>
+</section>
+<!--</form>-->
+
+<!--<div id="dump-query"></div>-->
+
+<!-- Footer section -->
+<div class="container-fluid bg-dark text-white font-weight-lighter">
+    <div class="row">
+        <div class="col my-4 mx-4">
+            <div><h5> Connect with Us </h5></div>
+            <div class="my-2">on social networks</div>
+            <div class="my-3">
+                <a href="https://www.facebook.com/pages/Federation-of-Earth-Science-Information-Partners-ESIP/150015055044779?ref=hl">
+                    <img class="mr-2" src="images/facebook.png"></a>
+                <a href="https://twitter.com/esipfed">
+                    <img class="mr-2" src="images/twitter.png"></a>
+                <a href="http://esipfed.org/esip_recent-news/feed">
+                    <img src="images/rss.png"></a>
+            </div>
+        </div>
+        <div class="col my-4 mx-4"><h5> Subscribe </h5>
+            <div class="my-2">to the monday updates</div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control bg-secondary"
+                    placeholder="your email" aria-label="your email"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-info font-weight-bold"
+                    id="basic-addon2">join</span>
+                </div>
+            </div>
+        </div>
+        <div class="col my-4 mx-4">
+            <p class="h5"> Search
+            <img src="images/search.png" width="8%" class="ml-3"></p>
+            <div class="my-2">this esip site</div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control bg-secondary"
+                    placeholder="your search terms" aria-label="your search terms"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-info font-weight-bold"
+                    id="basic-addon2">search</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5 text-center">
+        <div class="col mb-2">
+            <p class="text-center mb-0"> Questions or issues with the website? Please
+                contact <a href="mailto:clearinghouseEd@esipfed.org"
+                style="color:#18BC9C;">
+                clearinghouseEd@esipfed.org </a></p>
+            <p class="text-center mb-0"><a href="https://www.esipfed.org"
+                style="color:#18BC9C;"> ESIP </a>
+                is a collaboration among many partner organizations, activities
+                are sponsored by <a href="https://www.nasa.gov"
+                style="color:#18BC9C;"> NASA </a>,
+                <a href="https://www.noaa.gov" style="color:#18BC9C;"> NOAA </a>
+                and <a href="https://usgs.gov" style="color:#18BC9C;"> USGS </a>.
+            </p>
+            <p class="text-center"> Copyright © 2020 Earth Science Information
+                Partners. All rights reserved. </p>
+        </div>
+    </div>
+</div>
+
+<!-- Required JavaScript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha256-usTqAE1ywvdMtksWzdeWzD75MsfJN0h0U7y2NtZL3N0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="scripts/search.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+</html>
