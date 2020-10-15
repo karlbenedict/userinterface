@@ -1,5 +1,4 @@
 // Global Variables
-// Global Variables
 const verbose = true;
 const startup_request = "https://esip-dev-02.edacnm.org/api/resources/";
 
@@ -24,21 +23,21 @@ let current_result_count = 0;
 // TODO - hiding Author Organizations until the facet content is fixed
 // TODO - hiding Educational Frameworks until the key name bug in API is resolved
 const facet_names = {
-    "accessibility_features.name":["Accessibility Features", "show"],
     "author_org":["Author Organizations", "hide"],
-    "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
-    //"ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
-    "keywords":["Keywords", "show"],
     "language_primary":["Primary Languages", "show"],
     "languages_secondary":["Secondary Languages", "show"],
     "license":["License", "show"],
-    "lr_type":["Learning Resource Type", "show"],
-    "media_type":["Media Type", "show"],
-    "publisher":["Resource Publisher", "show"],
-    "purpose":["Resource Purpose", "show"],
+    "accessibility_features.name":["Accessibility Features", "show"],
+    "keywords":["Keywords", "show"],
     "subject":["Resource Subject", "show"],
+    "publisher":["Resource Publisher", "show"],
+    "usage_info":["Usage Information", "show"],
+    "media_type":["Media Type", "show"],
     "target_audience":["Target Audiences", "show"],
-    "usage_info":["Usage Information", "show"]
+    "lr_type":["Learning Resource Type", "show"],
+    "purpose":["Resource Purpose", "show"],
+    "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
+    //"ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
 };
 
 
@@ -69,7 +68,8 @@ function facetsToHTML() {
     let returnHTML = "\n";
     // sort the provided facets_json block
     let facets_sorted = {};
-    $.each( facets_dict, function( key ) {
+    //$.each( facets_dict, function( key ) {
+    $.each( facet_names, function( key ) {
         let entries = Object.entries(facets_dict[key]);
         //vMessage("Item: " + key + " - " + entries.length);
         vMessage("Sorting item: " + key + " (" + facet_names[key][0] + ": " + facet_names[key][1]+ " - " + entries.length + ")");
@@ -109,7 +109,8 @@ function facetsToHTML() {
         // Filter category title
         returnHTML +=
             "<div class='dropdown'><button class='btn btn-link dropdown-toggle' type='button' id='" +
-            key + "' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+            key +
+            "' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> " +
             facet_names[key][0] + "</button>" +
             "<div class='dropdown-menu' aria-labelledby='" + key + "'>";
         returnHTML +=
