@@ -23,7 +23,7 @@
         <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#"> Search
@@ -98,18 +98,23 @@
 
             <!-- https://getbootstrap.com/docs/4.5/components/forms/#form-row -->
             <div class="d-flex row">
-                <div class="p-1"><h5> Search </h5></div>
+                <div class="px-1"><h5> Search </h5></div>
                 <div class="p-1 flex-grow-1">
-                    <input id="quick-search-entry" name="quick-search-entry"
-                    type="text" placeholder="Enter a keyword" class="col-12">
+                    <div class="container pb-2">
+                        <input id="quick-search-entry" name="quick-search-entry"
+                        type="text" placeholder="Enter search word" class="col-12">
+                        <small class="text-muted">
+                            This searches authors, keywords, title and description
+                        </small>
+                    </div>
                 </div>
                 <div class="p-1">
                     <button id="quick-search-submit" name="quick-search-submit"
-                        class="btn btn-info" type="submit"> Search </button>
+                        class="btn btn-info btn-sm" type="submit"> Search </button>
                 </div>
                 <div class="p-1">
-                    <button class="btn btn-light" type="submit"
-                        id="quick-search-clear" name="quick-search-clear"
+                    <button id="quick-search-clear" name="quick-search-clear"
+                        class="btn btn-light" type="submit"
                         value="Clear Search"> Clear all </button>
                 </div>
             </div>
@@ -126,8 +131,52 @@
 
                 <!-- right side results section -->
                 <div class="col-9">
-                    <h5 class="font-weight-light"> Search Results: </h5>
-                    <div class="container-fluid" id="results-searchresult"></div>
+                    <div class="d-flex flex-row">
+                        <h5 class="font-weight-light"> Search Results: </h5>
+                        <div id="results-searchtotal" class="px-3"></div>
+
+                        <!-- pagination -->
+                        <nav class="flex-grow-1" aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="#"
+                                        aria-label="Previous"
+                                        aria-disabled="true">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <!-- items per page -->
+                        <div id="itemsPerPage" class="dropdown font-weight-light"
+                            relatedTarget="dropdownMenuButton"> Items per page 
+                          <button id="dropdownMenuButton" type="button"
+                            class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <span id="itemsPerPageValue">10</span>
+                          </button>
+                          <div class="dropdown-menu text-muted"
+                            style="min-width: 1rem;"
+                            aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item px-2" href="#">10</a>
+                            <a class="dropdown-item px-2" href="#">20</a>
+                            <a class="dropdown-item px-2" href="#">30</a>
+                          </div>
+                        </div>
+                    </div>
+
+                    <!-- search results -->
+                    <div id="results-searchresult"></div>
                 </div>
             </div>
         </div>
@@ -227,8 +276,9 @@
                     placeholder="your email" aria-label="your email"
                     aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-info font-weight-bold"
-                    id="basic-addon2">join</span>
+                    <span id="basic-addon2"
+                        class="input-group-text bg-info font-weight-bold"> join
+                    </span>
                 </div>
             </div>
         </div>
@@ -241,8 +291,9 @@
                     placeholder="your search terms" aria-label="your search terms"
                     aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-info font-weight-bold"
-                    id="basic-addon2">search</span>
+                    <span id="basic-addon2"
+                        class="input-group-text bg-info font-weight-bold">
+                        search </span>
                 </div>
             </div>
         </div>
@@ -270,6 +321,7 @@
 <!-- Required JavaScript-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha256-usTqAE1ywvdMtksWzdeWzD75MsfJN0h0U7y2NtZL3N0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="scripts/readmore.js"></script> <!--https://github.com/jedfoster/Readmore.js/tree/version-3.0-->
 <script src="scripts/search.js"></script>
 
 <!-- Optional JavaScript -->

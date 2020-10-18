@@ -7,7 +7,7 @@ let search_string = "";
 let search_facets = {};
 let post_content = {};
 let offset = 0;
-let limit = 15;
+let limit = 10;
 let sort_str="score desc";
 let status="true";
 let results = {};
@@ -23,17 +23,18 @@ let current_result_count = 0;
 // TODO - hiding Author Organizations until the facet content is fixed
 // TODO - hiding Educational Frameworks until the key name bug in API is resolved
 const facet_names = {
-    "author_org":["Author Organizations", "hide"],
+    "keywords":["Keywords", "show"],
+    "author_org":["Author Organizations", "show"],
     "language_primary":["Primary Languages", "show"],
     "languages_secondary":["Secondary Languages", "show"],
+    "target_audience":["Target Audiences", "show"],
+    //"access_cost":["Access Cost", "show"],
     "license":["License", "show"],
     "accessibility_features.name":["Accessibility Features", "show"],
-    "keywords":["Keywords", "show"],
     "subject":["Resource Subject", "show"],
     "publisher":["Resource Publisher", "show"],
     "usage_info":["Usage Information", "show"],
     "media_type":["Media Type", "show"],
-    "target_audience":["Target Audiences", "show"],
     "lr_type":["Learning Resource Type", "show"],
     "purpose":["Resource Purpose", "show"],
     "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
@@ -72,7 +73,7 @@ function facetsToHTML() {
     $.each( facet_names, function( key ) {
         let entries = Object.entries(facets_dict[key]);
         //vMessage("Item: " + key + " - " + entries.length);
-        vMessage("Sorting item: " + key + " (" + facet_names[key][0] + ": " + facet_names[key][1]+ " - " + entries.length + ")");
+        //vMessage("Sorting item: " + key + " (" + facet_names[key][0] + ": " + facet_names[key][1]+ " - " + entries.length + ")");
         let sorted = [];
         if (entries.length > 0 && key in facet_names) {
             if (facet_names[key][1] == "show") {
@@ -86,8 +87,8 @@ function facetsToHTML() {
 
     // process the sorted array into the corresponding set of checkbox controls
     $.each( facets_sorted, function( key ) {
-        vMessage("Building checkboxes for: " + key);
         /*
+        vMessage("Building checkboxes for: " + key);
         returnHTML = returnHTML + "<div class='facet-block'>";
         returnHTML = returnHTML + "<h2>" + facet_names[key][0] + "</h2>\n";
         //vMessage(value)
@@ -144,7 +145,7 @@ function facetsToHTML() {
 }
 
 function resultsToHTML() {
-    vMessage("entered resultsToHTML...");
+    //vMessage("entered resultsToHTML...");
     let results_array = results["results"];
     /* original
     let returnHTML = "<div class=\"result-set\">";
@@ -164,16 +165,17 @@ function resultsToHTML() {
     */
 
     $("#results-searchresult").empty();
+    $("#results-searchtotal").html ( current_result_count + " results" );
 
     $.each ( results_array, function ( index, value )
     {
-        vMessage ( value );
-
+        //vMessage ( value );
         let card = jQuery ( '<div></div>', { "class": "card" } );
         card.appendTo ( '#results-searchresult' );
 
         let body = jQuery ( '<div></div>', { "class": "card-body" } ).appendTo ( card );
 
+        // title & link
         let title = jQuery ( '<h6></h6>', { "class": "card-title",
             text: index + 1 + ". " } );
         title.appendTo ( body );
@@ -182,18 +184,93 @@ function resultsToHTML() {
             text: value.title } );
         link.appendTo ( title );
 
+        // media type; see https://icons.getbootstrap.com/#icons for icons
+        if ( typeof value.media_type !== 'undefined' )
+        {
+            let icon;
+            /*
+            let svg = jQuery ( '<img>', { "class": "bi", width: "32",
+                height: "32", fill: "currentColor",
+                text: "<use xlink:href='bootstrap-icons.svg#heart-fill'/>" } );
+ // <use xlink:href="bootstrap-icons.svg#heart-fill"/>
+ */
+            let val = value.media_type;
+            vMessage ( "MONA: " + index + " media = " + val );
+            if ( val.includes ( "Animation" ) )
+                icon = "images/film.svg";
+            else if ( val.includes ( "Collection" ) )
+                icon = "images/collection.svg";
+            else if ( val.includes ( "Event" ) )
+                icon = "images/calendar.svg";
+            else if ( val.includes ( "Moving Image" ) )
+                icon = "images/camera-video.svg";
+            else if ( val.includes ( "Presentation" ) )
+                icon = "images/person-square.svg";
+            else if ( val.includes ( "Text" ) )
+                icon = "images/card-text.svg";
+            vMessage ( "MONA: icon = " + icon );
+
+            if ( typeof icon !== 'undefined' )
+            {
+                let media = jQuery ( '<img>', { src: icon,
+                    "data-toggle": "tooltip", "title": "Media Type: " + val,
+                    width: "16px", hspace: "12" } );
+                media.appendTo ( title );
+            }
+        }
+
+        // license
+        if ( typeof value.license !== 'undefined' )
+        {
+            let icon;
+            let val = value.license;
+            //vMessage ( "MONA: " + index + " license = " + val );
+
+            if ( val.includes ( "CC BY 2.0" ) )
+                icon = "images/cc-by.png";
+            else if ( val.includes ( "CC BY-SA 4.0" ) )
+                icon = "images/cc-by-sa.png";
+            else if ( val.includes ( "CC BY" ) )
+                icon = "images/cc-by.png";
+            else if ( val.includes ( "YouTube" ) )
+                icon = "images/youtube-standard-license_0.png";
+
+            if ( typeof icon !== 'undefined' )
+            {
+                let license = jQuery ( '<img>', { src: icon,
+                    "data-toggle": "tooltip", "title": "License: " + val,
+                    style: "width: 12%" } );
+                license.appendTo ( title );
+            }
+        }
+
+        // author
         if ( typeof value.authors[0] !== 'undefined' )
         {
-            let subtitle = jQuery ( '<h6></h6>',
+            let subtitle = jQuery ( '<h6>',
                 { "class": "card-subtitle font-italic font-weight-lighters pb-1",
-                text: "1st author: " + value.authors[0].givenName + " " +
+                text: "Author #1: " + value.authors[0].givenName + " " +
                 value.authors[0].familyName } );
             subtitle.appendTo ( body );
         }
-
+        /* using card showing 3 lines but no "show more" function
         let text = jQuery ( '<p></p>', { "class": "card-text block-with-text",
             html: value.abstract_data } );
         text.appendTo ( body );
+        */
+
+        // description; code from https://codepen.io/joserick/pen/ooVPwR
+        let summary = jQuery ( '<div></div>', { "class": "result-item-description" } );
+        summary.appendTo ( body );
+
+        let description = jQuery ( '<p></p>', { "class": "collapse mb-0",
+            id: "desc" + index, html: value.abstract_data } );
+        description.appendTo ( summary );
+
+        let collapse = jQuery ( '<a></a>', { "class": "collapsed mb=1",
+            "data-toggle": "collapse", href: "#desc" + index,
+            "aria-expanded": "false", "aria-control": "collapseSummary" } );
+        collapse.appendTo ( summary );
     } );
 }
 
@@ -317,8 +394,8 @@ function processResults(data) {
     vMessage("Total number of records in result set: " + current_result_count);
     vMessage("\nResults object:")
     vMessage(results);
-    vMessage("\nFacets sub-object:")
-    vMessage(results["facets"]);
+    //vMessage("\nFacets sub-object:")
+    //vMessage(results["facets"]);
     facetsToHTML();
     $(':checkbox').change(function() {
         let facet_value = $(this).val();
@@ -405,12 +482,20 @@ $( "#quick-search-clear" ).on('click', function () {
     return false;
 });
 
+// Handles items per page events
+$('.dropdown-item.px-2').on ( 'click', function ( e )
+{
+    $('#itemsPerPageValue').html ( $(this).text());
+    limit = Number ( $(this).text() );
+    getResults();
+})
 
 
 // Document Ready code
 $( document ).ready(function() {
     // initial data retrieval - get result set
     vMessage("Initial page load finished ...")
+    $('[data-toggle="tooltip"]').tooltip() // enable tooltip
     defaultSearch()
     // $.ajax({
     //     "dataType": "json",
