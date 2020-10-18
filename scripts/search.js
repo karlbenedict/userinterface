@@ -24,7 +24,7 @@ let current_result_count = 0;
 // TODO - hiding Educational Frameworks until the key name bug in API is resolved
 const facet_names = {
     "keywords":["Keywords", "show"],
-    "author_org":["Author Organizations", "hide"], // has bug showing incorrect values corresponding with org name
+    //"author_org":["Author Organizations", "hide"], // has bug showing incorrect values corresponding with org name
     "language_primary":["Primary Languages", "show"],
     "languages_secondary":["Secondary Languages", "show"],
     "target_audience":["Target Audiences", "show"],
