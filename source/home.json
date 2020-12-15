@@ -1,0 +1,36 @@
+{
+  "block_01":{
+    "title":"Welcome to the DMT Clearinghouse",
+    "content":"source/home-block_01.md"
+  },
+  "hero_images":[
+    {
+      "alt_text":"some alt text",
+      "description":"description text",
+      "image_link":"images/hero_01.png"
+    },
+    {
+      "alt_text":"some alt text",
+      "description":"description text",
+      "image_link":"images/hero_02.png"
+    },
+    {
+      "alt_text":"some alt text",
+      "description":"description text",
+      "image_link":"images/hero_03.png"
+    }
+  ],
+  "block_02":{
+    "title":"New Resources",
+    "content":"search results from most recently added content"
+  },
+  "block_03":{
+    "title":"Featured Resources",
+    "content":"subset from blog.json for recent featured resources"
+  },
+  "block_04":{
+    "title":"Recent News",
+    "content":"subset from blog.json for recent recent news items"
+  }
+
+}
