@@ -24,6 +24,7 @@ let current_result_count = 0;
 // TODO - hiding Author Organizations until the facet content is fixed
 // TODO - hiding Educational Frameworks until the key name bug in API is resolved
 const facet_names = {
+    "access_cost":["Access Cost", "show"],
     "accessibility_features.name":["Accessibility Features", "show"],
     "author_org":["Author Organizations", "hide"],
     "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
