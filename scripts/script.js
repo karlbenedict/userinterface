@@ -27,6 +27,7 @@ const facet_names = {
     "access_cost":["Access Cost", "show"],
     "accessibility_features.name":["Accessibility Features", "show"],
     "author_org":["Author Organizations", "hide"],
+    "author_org_name":["Author Organization", "show"],
     "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
     //"ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
     "keywords":["Keywords", "show"],
