@@ -28,8 +28,8 @@ const facet_names = {
     "accessibility_features.name":["Accessibility Features", "show"],
     "author_names":["Author Names", "show"],
     "author_org.name":["Author Organizations", "show"],
-    "ed_frameworks.nodes.name":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
-    //"ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
+    "ed_frameworks.nodes.name":["Educational Frameworks", "show"],                 // remove this line when the ed_frameworks key issue is resolved in API
+    "ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
     "keywords":["Keywords", "show"],
     "language_primary":["Primary Languages", "show"],
     "languages_secondary":["Secondary Languages", "show"],
