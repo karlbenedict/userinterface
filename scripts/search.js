@@ -24,19 +24,18 @@ let current_result_count = 0;
 // TODO - hiding Educational Frameworks until the key name bug in API is resolved
 const facet_names = {
     "keywords":["Keywords", "show"],
-    //"author_org":["Author Organizations", "hide"], // has bug showing incorrect values corresponding with org name
-    "language_primary":["Primary Languages", "show"],
-    "languages_secondary":["Secondary Languages", "show"],
+    //"author_org":["Author Organization(s)", "hide"], // has bug showing incorrect values corresponding with org name
+    //"author_names":[Authoring Person(s) Names", "hide"], // question of whether this should be hidden
+    "language_primary":["Original Languages", "show"],
+    "languages_secondary":["Additional Languages", "show"],
     "target_audience":["Target Audiences", "show"],
     //"access_cost":["Access Cost", "show"],
     "license":["License", "show"],
     "accessibility_features.name":["Accessibility Features", "show"],
-    "subject":["Resource Subject", "show"],
-    "publisher":["Resource Publisher", "show"],
-    "usage_info":["Usage Information", "show"],
+    "subject":["Subject Discipline", "show"],
     "media_type":["Media Type", "show"],
     "lr_type":["Learning Resource Type", "show"],
-    "purpose":["Resource Purpose", "show"],
+    "purpose":["Educational Purpose", "show"],
     "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
     //"ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
 };
