@@ -1,0 +1,49 @@
+{
+	"block_01": {
+		"title": "Learn More About the DMTC!",
+		"content": "source/about-block_01.md"
+	},
+	"hero_images": [{
+			"alt_text": "about keyOrg_01",
+			"description": "what's the image",
+			"image_link": "images/imagefilename_01.jpg"
+		},
+		{
+			"alt_text": "about keyOrg_01",
+			"description": "what's in the image",
+			"image_link": "images/imagefilename_02.jpg"
+		},
+		{
+			"alt_text": "about keyOrg_03",
+			"description": "what's in the image",
+			"image_link": "images/imagefilename_03.jpg"
+		}
+	],
+	"block_02": {
+		"title": "The DMTC Community and how we connect",
+		"content": "Stakeholders including Learners, Educators and Trainers"
+	},
+	"block_03": {
+		"title": "Contact us",
+		"content": "Our contact information, yet TBD"
+	},
+	"block_04": {
+		"title": "Acknowledgements",
+		"content": [{
+				"image_link": "images/logo_001.png",
+				"alt_text": "about Logo_01",
+				"description": "Description of contribution"
+			},
+			{
+				"image_link": "images/logo_002.png",
+				"alt_text": "about Logo_01",
+				"description": "Description of contribution"
+			},
+			{
+				"image_link": "images/logo_003.png",
+				"alt_text": "about Logo_03",
+				"description": "Description of contribution"
+			}
+		]
+	}
+}
