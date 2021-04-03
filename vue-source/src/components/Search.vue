@@ -1,30 +1,8 @@
 <template>
-    <table>
-        <tr class="close">
-            <td class="label">Search</td>
-            <td class="spread">
-                <div class="search-container">
-                    <input
-                        type="text"
-                        placeholder=" Enter search word "
-                        v-model="quick_search_string"
-                        class="full"
-                        @keyup.enter="getSearchResults"
-                    />
-                    <button @click="getSearchResults">Search</button>
-                    <button @click="doClear">Clear</button>
-                </div>
-            </td>
-        </tr>
-        <tr class="close">
-            <td></td>
-            <td>
-                <div class="small">
-                    This searches authors, keywords, title and description
-                </div>
-            </td>
-        </tr>
-    </table>
+    <SearchBar
+        :value_in="quick_search_string"
+        @value_out="updateResults"
+    ></SearchBar>
 
     <div v-if="error" class="error">Sorry, unable to query server!</div>
     <div v-else>
@@ -96,16 +74,13 @@
 <script>
 import FilterItem from "./FilterItem.vue";
 import ResultItem from "./ResultItem.vue";
+import SearchBar from "./SearchBar.vue";
 
 export default {
-    props: {
-        msg: String,
-    },
-
-    error: "",
     name: "Search",
+    error: "",
 
-    components: { FilterItem, ResultItem },
+    components: { FilterItem, ResultItem, SearchBar },
 
     data() {
         return {
@@ -423,12 +398,27 @@ export default {
             this.offset = offset;
             this.start_index = start;
         },
+
+        updateResults(data) {
+            // console.log("Search.updateResults()");
+            // console.log("data = ", data);
+            this.quick_search_string = data;
+            this.getSearchResults();
+        },
+    },
+
+    beforeMount() {
+        // console.log("Search.beforeMount()");
+        if (this.$route.params && this.$route.params["search_string"])
+            this.quick_search_string = this.$route.params.search_string;
+        // console.log("quick_search_string = ", this.quick_search_string);
     },
 
     // Lifecycle functions, see
     // https://v3.vuejs.org/guide/instance.html#lifecycle-diagram for more info
     mounted() {
-        // console.log(ISO6391.getName("en"));
+        // console.log("Search.mounted");
+        // console.log("quick_search_string = ", this.quick_search_string);
         this.getSearchResults();
     },
 };
@@ -436,16 +426,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-table {
-    margin: auto;
-    padding: 1em;
-    width: 90%;
-}
-
-.close {
-    padding: 0px;
-}
-
 .error {
     font-weight: bold;
     text-align: center;
@@ -472,16 +452,6 @@ table {
     width: 85%;
 }
 
-.full {
-    margin: auto;
-    padding: 0px;
-    width: 90%;
-}
-
-.in-line {
-    display: inline;
-}
-
 .label {
     font-size: larger;
     font-weight: bold;
@@ -506,16 +476,8 @@ table {
     width: 90%;
 }
 
-.small {
-    font-size: smaller;
-}
-
 .sortby {
     font-size: smaller;
     padding-left: 1em;
-}
-
-.spread {
-    width: 100%;
 }
 </style>

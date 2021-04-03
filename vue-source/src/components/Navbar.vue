@@ -2,32 +2,32 @@
     <div class="flex-container">
         <div class="left">
             <span>
-                <!-- <router-link :to="{ name: 'Home' }"> -->
-                <img
-                    alt="ESIP logo"
-                    src="@/assets/esip-logo.png"
-                    class="logo"
-                />
-                <span class="title">DATA MANAGEMENT TRAINING</span>
-                <!-- </router-link> -->
+                <router-link :to="{ name: 'Home' }">
+                    <img
+                        alt="ESIP logo"
+                        src="@/assets/esip-logo.png"
+                        class="logo"
+                    />
+                    <span class="title">DATA MANAGEMENT TRAINING</span>
+                </router-link>
             </span>
             <span>
-                <!-- <router-link :to="{ name: 'Search' }">Search</router-link> -->
+                <router-link :to="{ name: 'Search' }">Search</router-link>
             </span>
             <span class="link">
-                <!-- <router-link :to="{ name: 'Contribute' }"> -->
-                Contribute
-                <!-- </router-link> -->
+                <router-link :to="{ name: 'Contribute' }">
+                    Contribute
+                </router-link>
             </span>
             <span class="link">
-                <!-- <router-link :to="{ name: 'Support' }"> -->
-                Support
-                <!-- </router-link> -->
+                <router-link :to="{ name: 'Support' }">
+                    Support
+                </router-link>
             </span>
             <span class="link">
-                <!-- <router-link :to="{ name: 'About' }"> -->
-                About
-                <!-- </router-link> -->
+                <router-link :to="{ name: 'About' }">
+                    About
+                </router-link>
             </span>
         </div>
         <div class="right">
