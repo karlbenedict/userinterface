@@ -1,0 +1,46 @@
+{
+  "block_01":{
+    "title":"Welcome to the DMT Clearinghouse",
+    "content":"source/home-block_01.md"
+  },
+  "hero_images":[
+    {
+      "alt_text":"Thumbnail image of USGS Science Support Framework",
+      "description":"US Geological Survey Community for Data Integration's Science Support Framework.  This image illustrates the components of the framework",
+      "image_link":"userinterface/images/frameworks/cdi-ssf-components.jpg"
+    },
+    {
+      "alt_text":"Thumbnail image of DataONE Data Lifecycle",
+      "description":"This image illustrates the DataONE Data Lifecycle components",
+      "image_link":"userinterface/images/frameworks/DataONE_DLC2015_sm.jpg"
+    },
+    {
+      "alt_text":"Thumbnail image of Digital Curation Centre Data lifecycle",
+      "description":"This image illustrates the components of the UK Digital Curatior Centre's Data lifecycle",
+      "image_link":"userinterface/images/frameworks/DCC-lifecycle_web.jpg"
+    },
+    {
+      "alt_text":"Thumbnail image of FGDC Data Lifecycle",
+      "description":"This image illustraties the US Federal Geographic Data Committee's Data lifecycle model",
+      "image_link":"userinterface/images/frameworks/FGDC_DataLifecycleModelsandConceptsv13.jpg"
+    },
+     {
+      "alt_text":"Thumbnail image of IWGDD Digital Data lifecycle model",
+      "description":"This image illustrates the US Interagency Working Group on Digital Data's digital data lifecycle model",
+      "image_link":"userinterface/images/frameworks/IWGDD_Harnessing_Power_Web.jpg"
+    }
+  ],
+  "block_02":{
+    "title":"New Resources",
+    "content":"search results from most recently added content"
+  },
+  "block_03":{
+    "title":"Featured Resources",
+    "content":"subset from blog.json for recent featured resources"
+  },
+  "block_04":{
+    "title":"Recent News",
+    "content":"subset from blog.json for recent recent news items"
+  }
+
+}

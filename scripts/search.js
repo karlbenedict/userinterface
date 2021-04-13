@@ -1,5 +1,4 @@
 // Global Variables
-// Global Variables
 const verbose = true;
 const startup_request = "https://esip-dev-02.edacnm.org/api/resources/";
 
@@ -8,7 +7,7 @@ let search_string = "";
 let search_facets = {};
 let post_content = {};
 let offset = 0;
-let limit = 15;
+let limit = 10;
 let sort_str="score desc";
 let status="true";
 let results = {};
@@ -24,23 +23,21 @@ let current_result_count = 0;
 // TODO - hiding Author Organizations until the facet content is fixed
 // TODO - hiding Educational Frameworks until the key name bug in API is resolved
 const facet_names = {
-    "access_cost":["Access Cost", "show"],
-    "accessibility_features.name":["Accessibility Features", "show"],
-    "author_names":["Author Names", "show"],
-    "author_org.name":["Author Organizations", "show"],
-    "ed_frameworks.nodes.name":["Educational Frameworks", "show"],                 // remove this line when the ed_frameworks key issue is resolved in API
-    "ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
     "keywords":["Keywords", "show"],
-    "language_primary":["Primary Languages", "show"],
-    "languages_secondary":["Secondary Languages", "show"],
-    "license":["License", "show"],
-    "lr_type":["Learning Resource Type", "show"],
-    "media_type":["Media Type", "show"],
-    "publisher":["Resource Publisher", "show"],
-    "purpose":["Resource Purpose", "show"],
-    "subject":["Resource Subject", "show"],
+    //"author_org":["Author Organization(s)", "hide"], // has bug showing incorrect values corresponding with org name
+    //"author_names":[Authoring Person(s) Names", "hide"], // question of whether this should be hidden
+    "language_primary":["Original Languages", "show"],
+    "languages_secondary":["Additional Languages", "show"],
     "target_audience":["Target Audiences", "show"],
-    "usage_info":["Usage Information", "show"]
+    //"access_cost":["Access Cost", "show"],
+    "license":["License", "show"],
+    "accessibility_features.name":["Accessibility Features", "show"],
+    "subject":["Subject Discipline", "show"],
+    "media_type":["Media Type", "show"],
+    "lr_type":["Learning Resource Type", "show"],
+    "purpose":["Educational Purpose", "show"],
+    "ed_frameworks":["Educational Frameworks", "hide"],                 // remove this line when the ed_frameworks key issue is resolved in API
+    //"ed_frameworks.name":["Educational Frameworks", "show"],          // uncomment this line when ed_frameworks key issue is resolved in API
 };
 
 
@@ -71,10 +68,11 @@ function facetsToHTML() {
     let returnHTML = "\n";
     // sort the provided facets_json block
     let facets_sorted = {};
-    $.each( facets_dict, function( key ) {
+    //$.each( facets_dict, function( key ) {
+    $.each( facet_names, function( key ) {
         let entries = Object.entries(facets_dict[key]);
         //vMessage("Item: " + key + " - " + entries.length);
-        vMessage("Sorting item: " + key + " (" + facet_names[key][0] + ": " + facet_names[key][1]+ " - " + entries.length + ")");
+        //vMessage("Sorting item: " + key + " (" + facet_names[key][0] + ": " + facet_names[key][1]+ " - " + entries.length + ")");
         let sorted = [];
         if (entries.length > 0 && key in facet_names) {
             if (facet_names[key][1] == "show") {
@@ -88,6 +86,7 @@ function facetsToHTML() {
 
     // process the sorted array into the corresponding set of checkbox controls
     $.each( facets_sorted, function( key ) {
+        /*
         vMessage("Building checkboxes for: " + key);
         returnHTML = returnHTML + "<div class='facet-block'>";
         returnHTML = returnHTML + "<h2>" + facet_names[key][0] + "</h2>\n";
@@ -105,6 +104,38 @@ function facetsToHTML() {
             i = i + 1;
         })
         returnHTML = returnHTML + "</div>";
+        */
+
+        // Filter category title
+        returnHTML +=
+            "<div class='dropdown'><button class='btn btn-link dropdown-toggle' type='button' id='" +
+            key +
+            "' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> " +
+            facet_names[key][0] + "</button>" +
+            "<div class='dropdown-menu' aria-labelledby='" + key + "'>";
+        returnHTML +=
+            "<div class='input-group mb-3'> <div class='input-group-prepend'> <div class='input-group-btn'>";
+
+        let i = 0;
+        // Filter category item
+        $.each( facets_sorted[key], function(item) {
+
+            /* Before checkbox
+            returnHTML += "<a class='dropdown-item' href='#'>" +
+                facets_sorted[key][i][0] + " (" + facets_sorted[key][i][1] +
+                ")</a>";
+            */
+            let fski0 = facets_sorted[key][i][0];
+            let fski1 = "(" + facets_sorted[key][i][1] + ")";
+
+            returnHTML +=
+                "<a class='dropdown-item text-wrap small' href='#'> <input type='checkbox' id='" +
+                key + "-" + i + "' value='" + key + "|" + fski0 + "' name='" +
+                fski0 + " " + fski1 + "'> " + fski0 + " " + fski1 + "</a>";
+            i += 1;
+        })
+        returnHTML += "</div></div></div></div>";
+
     });
     //vMessage(returnHTML);
     // return the generated HTML
@@ -113,8 +144,9 @@ function facetsToHTML() {
 }
 
 function resultsToHTML() {
-    vMessage("Processing results ...");
+    //vMessage("entered resultsToHTML...");
     let results_array = results["results"];
+    /* original
     let returnHTML = "<div class=\"result-set\">";
 
     $.each( results_array, function( index, value) {
@@ -129,6 +161,116 @@ function resultsToHTML() {
 
     returnHTML = returnHTML + "</div>";
     $("#results-searchresult").html(returnHTML);
+    */
+
+    $("#results-searchresult").empty();
+    $("#results-searchtotal").html ( current_result_count + " results" );
+
+    $.each ( results_array, function ( index, value )
+    {
+        //vMessage ( value );
+        let card = jQuery ( '<div></div>', { "class": "card" } );
+        card.appendTo ( '#results-searchresult' );
+
+        let body = jQuery ( '<div></div>', { "class": "card-body" } ).appendTo ( card );
+
+        // title & link
+        let title = jQuery ( '<h6></h6>', { "class": "card-title",
+            text: index + 1 + ". " } );
+        title.appendTo ( body );
+
+        let link = jQuery ( '<a></a>', { "href": value.url,
+            text: value.title } );
+        link.appendTo ( title );
+
+        // media type; see https://icons.getbootstrap.com/#icons for icons
+        if ( typeof value.media_type !== 'undefined' )
+        {
+            let icon;
+            /*
+            let svg = jQuery ( '<img>', { "class": "bi", width: "32",
+                height: "32", fill: "currentColor",
+                text: "<use xlink:href='bootstrap-icons.svg#heart-fill'/>" } );
+ // <use xlink:href="bootstrap-icons.svg#heart-fill"/>
+ */
+            let val = value.media_type;
+            vMessage ( "MONA: " + index + " media = " + val );
+            if ( val.includes ( "Animation" ) )
+                icon = "images/film.svg";
+            else if ( val.includes ( "Collection" ) )
+                icon = "images/collection.svg";
+            else if ( val.includes ( "Event" ) )
+                icon = "images/calendar.svg";
+            else if ( val.includes ( "Moving Image" ) )
+                icon = "images/camera-video.svg";
+            else if ( val.includes ( "Presentation" ) )
+                icon = "images/person-square.svg";
+            else if ( val.includes ( "Text" ) )
+                icon = "images/card-text.svg";
+            vMessage ( "MONA: icon = " + icon );
+
+            if ( typeof icon !== 'undefined' )
+            {
+                let media = jQuery ( '<img>', { src: icon,
+                    "data-toggle": "tooltip", "title": "Media Type: " + val,
+                    width: "16px", hspace: "12" } );
+                media.appendTo ( title );
+            }
+        }
+
+        // license
+        if ( typeof value.license !== 'undefined' )
+        {
+            let icon;
+            let val = value.license;
+            //vMessage ( "MONA: " + index + " license = " + val );
+
+            if ( val.includes ( "CC BY 2.0" ) )
+                icon = "images/cc-by.png";
+            else if ( val.includes ( "CC BY-SA 4.0" ) )
+                icon = "images/cc-by-sa.png";
+            else if ( val.includes ( "CC BY" ) )
+                icon = "images/cc-by.png";
+            else if ( val.includes ( "YouTube" ) )
+                icon = "images/youtube-standard-license_0.png";
+
+            if ( typeof icon !== 'undefined' )
+            {
+                let license = jQuery ( '<img>', { src: icon,
+                    "data-toggle": "tooltip", "title": "License: " + val,
+                    style: "width: 12%" } );
+                license.appendTo ( title );
+            }
+        }
+
+        // author
+        if ( typeof value.authors[0] !== 'undefined' )
+        {
+            let subtitle = jQuery ( '<h6>',
+                { "class": "card-subtitle font-italic font-weight-lighters pb-1",
+                text: "Author #1: " + value.authors[0].givenName + " " +
+                value.authors[0].familyName } );
+            subtitle.appendTo ( body );
+        }
+        /* using card showing 3 lines but no "show more" function
+        let text = jQuery ( '<p></p>', { "class": "card-text block-with-text",
+            html: value.abstract_data } );
+        text.appendTo ( body );
+        */
+
+        // description; code from https://codepen.io/joserick/pen/ooVPwR
+        let summary = jQuery ( '<div></div>', { "class": "result-item-description" } );
+        summary.appendTo ( body );
+
+        let description = jQuery ( '<p></p>', { "class": "collapse mb-0",
+            id: "desc" + index, html: value.abstract_data } );
+        description.appendTo ( summary );
+
+        let collapse = jQuery ( '<a></a>', { "class": "collapsed mb=1",
+            "data-toggle": "collapse", href: "#desc" + index,
+            "aria-expanded": "false", "aria-control": "collapseSummary" } );
+        collapse.appendTo ( summary );
+    } );
 }
 
 function updateActiveFacets() {
@@ -221,7 +363,9 @@ function buildSearchJSON() {
 }
 
 function getResults() {
+    vMessage ( "MONA: entered getResults()" );
     search_string = $( "#quick-search-entry" ).val();
+    vMessage ( "MONA: search_string = " + search_string );
     buildSearchJSON()
     let searchJSON = post_content;
     vMessage("Starting search process with the following search JSON:");
@@ -249,8 +393,8 @@ function processResults(data) {
     vMessage("Total number of records in result set: " + current_result_count);
     vMessage("\nResults object:")
     vMessage(results);
-    vMessage("\nFacets sub-object:")
-    vMessage(results["facets"]);
+    //vMessage("\nFacets sub-object:")
+    //vMessage(results["facets"]);
     facetsToHTML();
     $(':checkbox').change(function() {
         let facet_value = $(this).val();
@@ -301,6 +445,7 @@ function processResults(data) {
 }
 
 function defaultSearch() {
+    vMessage ( "MONA 1" );
     vMessage("Clearing and resubmitting default search!");
     search_facets = {};
     $('input[name=quick-search-entry]').val('');
@@ -309,7 +454,7 @@ function defaultSearch() {
 
 // Event handlers
 $( "#quick-search-submit" ).on('click', function () {
-    // vMessage("Search form triggered!");
+    vMessage("Search form triggered!");
     // let ss = $( "#quick-search-entry" ).val();
     // let post_string = buildSearchJSON(ss, facets=search_facets);
     // let post_results = getResults(post_string);
@@ -331,16 +476,25 @@ $("#quick-search-entry").on('keydown', function (e) {
 });
 
 $( "#quick-search-clear" ).on('click', function () {
+    $('input[name=quick-search-entry]').val('');
     defaultSearch()
     return false;
 });
 
+// Handles items per page events
+$('.dropdown-item.px-2').on ( 'click', function ( e )
+{
+    $('#itemsPerPageValue').html ( $(this).text());
+    limit = Number ( $(this).text() );
+    getResults();
+})
 
 
 // Document Ready code
 $( document ).ready(function() {
     // initial data retrieval - get result set
     vMessage("Initial page load finished ...")
+    $('[data-toggle="tooltip"]').tooltip() // enable tooltip
     defaultSearch()
     // $.ajax({
     //     "dataType": "json",
